@@ -35,13 +35,33 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
     
     return (
         <div className="bg-gradient-to-r from-purple-50 via-white to-indigo-50 px-4 sm:px-6 py-3 shadow-md border-b border-indigo-100">
-            <div className="flex flex-col md:flex-row items-center w-full">
-                <div className="flex justify-between items-center w-full md:w-auto">
+            {/* Desktop view - exactly like original */}
+            <div className="hidden sm:flex sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+                <h2 className="text-2xl font-bold text-indigo-700">QuikScribe</h2>
+                
+                {shouldShowSearchBar && (
+                    <div className="w-auto">
+                        <SearchBar
+                            value={searchQuery}
+                            onChange={({ target }) => setSearchQuery(target.value)}
+                            handleSearch={handleSearch}
+                            onClearSearch={onClearSearch}
+                        />
+                    </div>
+                )}
+                
+                <div>
+                    <Profile userInfo={userInfo} onLogout={onLogout} />
+                </div>
+            </div>
+            
+            {/* Mobile view */}
+            <div className="sm:hidden">
+                <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold text-indigo-700">QuikScribe</h2>
                     
-                    {/* Hamburger menu for mobile */}
                     <button 
-                        className="md:hidden focus:outline-none" 
+                        className="focus:outline-none" 
                         onClick={toggleMenu}
                         aria-label="Toggle menu"
                     >
@@ -55,23 +75,24 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
                     </button>
                 </div>
                 
-                {/* Mobile menu */}
-                <div className={`flex flex-col md:flex-row md:items-center w-full md:justify-between mt-3 md:mt-0 ${isMenuOpen ? 'block' : 'hidden md:flex'}`}>
-                    {shouldShowSearchBar && (
-                        <div className="w-full md:w-auto md:mx-4 mb-3 md:mb-0">
-                            <SearchBar
-                                value={searchQuery}
-                                onChange={({ target }) => setSearchQuery(target.value)}
-                                handleSearch={handleSearch}
-                                onClearSearch={onClearSearch}
-                            />
+                {isMenuOpen && (
+                    <div className="mt-3 flex flex-col gap-3">
+                        {shouldShowSearchBar && (
+                            <div className="w-full">
+                                <SearchBar
+                                    value={searchQuery}
+                                    onChange={({ target }) => setSearchQuery(target.value)}
+                                    handleSearch={handleSearch}
+                                    onClearSearch={onClearSearch}
+                                />
+                            </div>
+                        )}
+                        
+                        <div className="mt-2">
+                            <Profile userInfo={userInfo} onLogout={onLogout} />
                         </div>
-                    )}
-                    
-                    <div className="mt-3 md:mt-0">
-                        <Profile userInfo={userInfo} onLogout={onLogout} />
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );

@@ -98,26 +98,26 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
 
   return (
     <motion.div 
-      className="relative bg-white rounded-lg shadow-lg p-6 border border-indigo-50"
+      className="relative bg-white rounded-lg shadow-lg p-4 sm:p-6 border border-indigo-50 w-full max-w-full mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
       <motion.button
-        className="w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 bg-white shadow-md text-gray-500 hover:text-red-500 hover:bg-red-50 transition-colors"
+        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center absolute -top-2 -right-2 sm:-top-3 sm:-right-3 bg-white shadow-md text-gray-500 hover:text-red-500 hover:bg-red-50 transition-colors"
         onClick={onClose}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <MdClose className="text-xl" />
+        <MdClose className="text-lg sm:text-xl" />
       </motion.button>
 
       <div className="flex flex-col gap-2">
-        <label className="input-label text-indigo-500 font-medium tracking-wider">TITLE</label>
+        <label className="input-label text-indigo-500 font-medium tracking-wider text-sm sm:text-base">TITLE</label>
         <motion.input
           id="title-input"
           type="text"
-          className="text-2xl text-slate-800 outline-none border-b-2 border-transparent focus:border-indigo-300 transition-colors"
+          className="text-xl sm:text-2xl text-slate-800 outline-none border-b-2 border-transparent focus:border-indigo-300 transition-colors w-full"
           placeholder="Study Data Structures"
           value={title}
           onChange={({ target }) => setTitle(target.value)}
@@ -125,28 +125,28 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
         />
       </div>
 
-      <div className="flex flex-col gap-2 mt-6">
-        <label className="input-label text-indigo-500 font-medium tracking-wider">CONTENT</label>
+      <div className="flex flex-col gap-2 mt-4 sm:mt-6">
+        <label className="input-label text-indigo-500 font-medium tracking-wider text-sm sm:text-base">CONTENT</label>
         <motion.textarea
           id="content-input"
           type="text"
-          className="text-sm text-slate-700 outline-none bg-indigo-50 p-4 rounded-lg resize-none transition-colors focus:bg-indigo-100 focus:shadow-inner"
+          className="text-sm text-slate-700 outline-none bg-indigo-50 p-3 sm:p-4 rounded-lg resize-none transition-colors focus:bg-indigo-100 focus:shadow-inner w-full"
           placeholder="Write your note content here..."
-          rows={10}
+          rows={8}
           value={content}
           onChange={({ target }) => setContent(target.value)}
           whileFocus={{ scale: 1.01 }}
         />
       </div>
 
-      <div className="mt-5">
-        <label className="input-label text-indigo-500 font-medium tracking-wider">TAGS</label>
+      <div className="mt-4 sm:mt-5">
+        <label className="input-label text-indigo-500 font-medium tracking-wider text-sm sm:text-base">TAGS</label>
         <TagInput tags={tags} setTags={setTags} />
       </div>
 
       {error && (
         <motion.p 
-          className="text-red-500 text-xs pt-4 flex items-center"
+          className="text-red-500 text-xs pt-3 sm:pt-4 flex items-center"
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.2 }}
@@ -159,7 +159,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose, showToastMessage }
       )}
 
       <motion.button
-        className={`btn-primary font-medium mt-5 p-3 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 rounded-lg shadow-md ${isSubmitting ? 'opacity-80' : ''}`}
+        className={`btn-primary font-medium mt-4 sm:mt-5 p-2 sm:p-3 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 rounded-lg shadow-md w-full ${isSubmitting ? 'opacity-80' : ''}`}
         onClick={handleAddNote}
         disabled={isSubmitting}
         whileHover={{ scale: 1.02 }}

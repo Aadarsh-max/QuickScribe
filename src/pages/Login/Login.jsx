@@ -54,7 +54,7 @@ const Login = () => {
         <div className="flex flex-col min-h-screen">
             <Navbar />
             
-            <div className="flex items-center justify-center flex-grow px-4 py-8 sm:py-12 md:py-16 bg-gray-50">
+            <div className="flex items-center justify-center flex-grow px-4 py-8 sm:py-12 md:py-16 bg-[#f5f5dc]">
                 <div className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-xl bg-white p-5 sm:p-8 md:p-10 shadow-lg border border-gray-200 bg-gradient-to-tr from-purple-50 via-white to-indigo-50 transition-all">
                     <form onSubmit={handleLogin} className="space-y-5">
                         <h4 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 text-indigo-700">Login</h4>

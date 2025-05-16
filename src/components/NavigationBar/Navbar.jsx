@@ -41,8 +41,7 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
             <div className="hidden sm:flex sm:flex-row sm:items-center sm:justify-between sm:gap-0">
                 <div className="flex items-center">
                     <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-600 text-2xl font-extrabold tracking-tight drop-shadow-sm">
-                        <span className="inline-block transform hover:scale-105 transition-transform duration-300">Quik</span>
-                        <span className="inline-block transform hover:scale-105 transition-transform duration-300 text-indigo-800">Scribe</span>
+                        <span className="inline-block transform hover:scale-105 transition-transform duration-300 text-indigo-800">QuickScribe</span>
                     </h2>
                 </div>
                 

@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #8b5cf6; /* Violet-500 */
+    --color-primary-hover: #7c3aed; /* Violet-600 */
+    --color-secondary: #6366f1; /* Indigo-500 */
+    --color-accent: #a78bfa; /* Purple-400 */
+    --color-success: #10b981; /* Emerald-500 */
+    --color-warning: #f59e0b; /* Amber-500 */
+    --color-error: #ef4444; /* Red-500 */
+    --color-gray-light: #f3f4f6; /* Gray-100 */
+    --color-gray-medium: #9ca3af; /* Gray-400 */
+    --color-gray-dark: #4b5563; /* Gray-600 */
+  }
+
+  html {
+    font-family: "Poppins", "sans-serif";
+  }
+
+  body {
+    background-color: beige;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .input-box {
+    @apply w-full text-sm bg-white border-[1.5px] border-indigo-200 px-5 py-3 rounded-lg mb-4 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-400 transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply w-full text-sm bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-lg my-1 transition-all duration-200 shadow-md;
+  }
+
+  .icon-btn {
+    @apply text-xl text-gray-400 hover:text-violet-500 cursor-pointer transition-colors;
+  }
+
+  .input-label {
+    @apply text-xs text-gray-700 font-medium;
+  }
+}

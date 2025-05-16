@@ -26,18 +26,25 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
     };
     
     // Hide SearchBar on /login and /signup routes
-    const hideSearchOn = ["/login", "/signUp"];
-    const shouldShowSearchBar = !hideSearchOn.includes(location.pathname);
+    const hideOn = ["/login", "/signUp"];
+    const shouldShowSearchBar = !hideOn.includes(location.pathname);
+    // Hide logout button on login/signup pages
+    const shouldShowLogout = !hideOn.includes(location.pathname);
     
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
     
     return (
-        <div className="bg-gradient-to-r from-purple-50 via-white to-indigo-50 px-4 sm:px-6 py-3 shadow-md border-b border-indigo-100">
-            {/* Desktop view - exactly like original */}
+        <div className="bg-gradient-to-r from-purple-100 via-indigo-50 to-blue-100 px-4 sm:px-6 py-3 shadow-md border-b border-indigo-200">
+            {/* Desktop view */}
             <div className="hidden sm:flex sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-                <h2 className="text-2xl font-bold text-indigo-700">QuikScribe</h2>
+                <div className="flex items-center">
+                    <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-600 text-2xl font-extrabold tracking-tight drop-shadow-sm">
+                        <span className="inline-block transform hover:scale-105 transition-transform duration-300">Quik</span>
+                        <span className="inline-block transform hover:scale-105 transition-transform duration-300 text-indigo-800">Scribe</span>
+                    </h2>
+                </div>
                 
                 {shouldShowSearchBar && (
                     <div className="w-auto">
@@ -51,14 +58,21 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
                 )}
                 
                 <div>
-                    <Profile userInfo={userInfo} onLogout={onLogout} />
+                    {shouldShowLogout ? (
+                        <Profile userInfo={userInfo} onLogout={onLogout} />
+                    ) : null}
                 </div>
             </div>
             
             {/* Mobile view */}
             <div className="sm:hidden">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-2xl font-bold text-indigo-700">QuikScribe</h2>
+                    <div className="flex items-center">
+                        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-600 text-2xl font-extrabold tracking-tight drop-shadow-sm">
+                            <span className="inline-block">Quik</span>
+                            <span className="inline-block text-indigo-800">Scribe</span>
+                        </h2>
+                    </div>
                     
                     <button 
                         className="focus:outline-none" 
@@ -88,9 +102,11 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
                             </div>
                         )}
                         
-                        <div className="mt-2">
-                            <Profile userInfo={userInfo} onLogout={onLogout} />
-                        </div>
+                        {shouldShowLogout && (
+                            <div className="mt-2">
+                                <Profile userInfo={userInfo} onLogout={onLogout} />
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

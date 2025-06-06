@@ -1,25 +1,24 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Input from "../../components/Inputs/Input";
+import React, { useState } from "react";
+import Navbar from "../../components/NavigationBar/Navbar";
+import PasswordInput from "../../components/Input/PasswordInput";
+import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
-import { UserContext } from "../../context/userContext";
 import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPaths";
 
-const SignUp = ({ setCurrentPage }) => {
+const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    if (!fullName) {
-      setError("Please enter full name.");
+    if (!fullName.trim()) {
+      setError("Please enter your full name.");
       return;
     }
 
@@ -29,99 +28,132 @@ const SignUp = ({ setCurrentPage }) => {
     }
 
     if (!password) {
-      setError("Please enter the password");
+      setError("Please enter a password.");
       return;
     }
 
     setError("");
+    setIsLoading(true);
 
     try {
-      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+      const response = await axiosInstance.post("/register", {
         name: fullName,
-        email,
-        password,
-        profileImageUrl: "", // Optional: Keep as empty if your backend expects it
+        email: email,
+        password: password,
+        profileImageUrl: "", // optional field
       });
 
-      const { token } = response.data;
-
-      if (token) {
-        localStorage.setItem("token", token);
-        updateUser(response.data);
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
         navigate("/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div
-      className="w-full md:w-[45vw] max-w-md p-7 flex flex-col justify-center
-                 bg-[#0A081A] rounded-lg shadow-lg
-                 mx-auto my-16"
-    >
-      <h3 className="text-lg font-semibold text-white">Create an Account</h3>
-      <p className="text-xs text-[#B0B0C0] mt-[5px] mb-6">
-        Join us today by entering your details below.
-      </p>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
 
-      <form onSubmit={handleSignUp}>
-        <div className="grid grid-cols-1 gap-4">
-          <Input
-            value={fullName}
-            onChange={({ target }) => setFullName(target.value)}
-            label="Full Name"
-            placeholder="John"
-            type="text"
-            className="text-white placeholder-[#B0B0C0] bg-[#0A081A] border border-[#3FE1FF] rounded-md px-3 py-2"
-          />
+      <div className="flex items-center justify-center flex-grow px-4 py-8 sm:py-12 md:py-16 bg-[#f5f5dc]">
+        <div className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-xl bg-white p-5 sm:p-8 md:p-10 shadow-lg border border-gray-200 bg-gradient-to-tr from-purple-50 via-white to-indigo-50 transition-all">
+          <form onSubmit={handleSignUp} className="space-y-5">
+            <h4 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center mb-6 text-indigo-700">
+              Sign Up
+            </h4>
 
-          <Input
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-            label="Email Address"
-            placeholder="john@example.com"
-            type="text"
-            className="text-white placeholder-[#B0B0C0] bg-[#0A081A] border border-[#3FE1FF] rounded-md px-3 py-2"
-          />
+            <div className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  aria-label="Full Name"
+                />
+              </div>
 
-          <Input
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-            label="Password"
-            placeholder="Min 8 Characters"
-            type="password"
-            className="text-white placeholder-[#B0B0C0] bg-[#0A081A] border border-[#3FE1FF] rounded-md px-3 py-2"
-          />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  aria-label="Email"
+                />
+              </div>
+
+              <div>
+                <PasswordInput
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {error && (
+              <div className="pt-1">
+                <p className="text-red-500 text-xs sm:text-sm">{error}</p>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 sm:py-3 rounded-lg text-sm sm:text-base font-medium hover:scale-[1.01] transition-all duration-200 hover:shadow-md flex items-center justify-center"
+            >
+              {isLoading ? (
+                <span className="inline-flex items-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Creating account...
+                </span>
+              ) : (
+                "Sign Up"
+              )}
+            </button>
+
+            <div className="flex justify-center">
+              <p className="text-xs sm:text-sm text-center mt-4 text-gray-600">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="font-medium text-indigo-600 underline hover:text-purple-600 transition-colors duration-200"
+                >
+                  Login here
+                </Link>
+              </p>
+            </div>
+          </form>
         </div>
-
-        {error && <p className="text-red-500 text-xs pb-2.5 mt-2">{error}</p>}
-
-        <button
-          type="submit"
-          className="w-full py-2 mt-6 font-semibold rounded-md
-                     bg-gradient-to-r from-[#3FE1FF] via-[#9378FF] to-[#DD3EFF]
-                     text-[#000822] hover:brightness-110 transition"
-        >
-          SIGN UP
-        </button>
-
-        <p className="text-[13px] text-[#B0B0C0] mt-3">
-          Already an account?{" "}
-          <button
-            className="font-medium underline cursor-pointer text-[#3FE1FF] hover:text-[#9378FF] transition"
-            onClick={() => setCurrentPage("login")}
-            type="button"
-          >
-            Login
-          </button>
-        </p>
-      </form>
+      </div>
     </div>
   );
 };

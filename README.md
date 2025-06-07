@@ -42,5 +42,3 @@
 
 ---
 
-## 📁 Project Structure (Frontend)
-

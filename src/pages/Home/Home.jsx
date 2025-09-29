@@ -155,8 +155,17 @@ const Home = () => {
         tap: { scale: 0.95 }
     };
 
-    return (
-        <div className="min-h-screen bg-[#f5f5dc]">
+  return (
+    <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-cyan-900/20 animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-20 left-20 w-96 h-96 bg-purple-600/10 rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
+            <div className="absolute bottom-20 right-20 w-96 h-96 bg-cyan-600/10 rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-600/5 rounded-full filter blur-3xl animate-pulse" style={{ animationDuration: '9s', animationDelay: '2s' }} />
+        </div>
+        
+        <div className="relative z-10">
             <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
 
             <div className="w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-10 max-w-screen-xl mx-auto">
@@ -167,15 +176,18 @@ const Home = () => {
                         transition={{ duration: 0.5 }}
                         className="flex items-center"
                     >
-                        <MdOutlineNotes className="text-2xl sm:text-4xl text-indigo-500 mr-2 sm:mr-3" />
-                        <h1 className="text-xl sm:text-3xl font-bold text-indigo-900">My Notes</h1>
+                        <MdOutlineNotes className="text-2xl sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 mr-2 sm:mr-3" />
+                        <h1 className="text-xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-300 to-cyan-400">My Notes</h1>
                     </motion.div>
-                    <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full mt-2" />
+                    <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full mt-2 shadow-lg shadow-purple-500/50" />
                 </div>
 
                 {isLoading ? (
                     <div className="flex justify-center items-center h-48 sm:h-64">
-                        <div className="animate-pulse w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600" />
+                        <div className="relative">
+                            <div className="animate-spin w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-purple-500/20 border-t-purple-500" />
+                            <div className="absolute inset-0 animate-ping w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-purple-500/20" />
+                        </div>
                     </div>
                 ) : allNotes.length > 0 ? (
                     <motion.div
@@ -211,7 +223,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-white bg-opacity-80 backdrop-blur-sm p-4 sm:p-8 rounded-xl shadow-md border border-indigo-100"
+                        className="bg-gradient-to-br from-purple-900/30 via-gray-900/50 to-cyan-900/30 backdrop-blur-xl p-4 sm:p-8 rounded-2xl shadow-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
                     >
                         <EmptyCard
                             imgSrc={isSearch ? NoDataImg : AddNotesImg}
@@ -226,7 +238,7 @@ const Home = () => {
             </div>
 
             <motion.button
-                className='w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-xl fixed right-3 bottom-3 sm:right-10 sm:bottom-10 z-10 ring-2 sm:ring-4 ring-indigo-200'
+                className='w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 text-white shadow-2xl shadow-purple-500/50 fixed right-3 bottom-3 sm:right-10 sm:bottom-10 z-10 ring-2 sm:ring-4 ring-purple-400/30 hover:ring-purple-400/60 transition-all duration-300'
                 onClick={() => {
                     setOpenAddEditModal({ isShown: true, type: "add", data: null });
                 }}
@@ -245,13 +257,13 @@ const Home = () => {
                 }}
                 style={{
                     overlay: {
-                        backgroundColor: "rgba(49, 46, 129, 0.4)",
-                        backdropFilter: "blur(4px)",
+                        backgroundColor: "rgba(0, 0, 0, 0.85)",
+                        backdropFilter: "blur(8px)",
                         zIndex: 20
                     },
                 }}
                 contentLabel=""
-                className="w-[95%] sm:w-3/4 lg:w-2/5 max-h-[90vh] sm:max-h-[85vh] overflow-y-auto bg-white dark:bg-gray-800 rounded-xl mx-auto mt-4 sm:mt-10 p-3 sm:p-6 shadow-2xl border-none outline-none"
+                className="w-[95%] sm:w-3/4 lg:w-2/5 max-h-[90vh] sm:max-h-[85vh] overflow-y-auto bg-gradient-to-br from-gray-900 via-purple-900/50 to-gray-900 rounded-2xl mx-auto mt-4 sm:mt-10 p-3 sm:p-6 shadow-2xl border border-purple-500/30 outline-none"
             >
                 <AddEditNotes
                     type={openAddEditModal.type}
@@ -281,7 +293,8 @@ const Home = () => {
                 )}
             </AnimatePresence>
         </div>
-    );
+    </div>
+);
 };
 
 export default Home;

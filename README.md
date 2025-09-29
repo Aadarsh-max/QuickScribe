@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# 📝 QuickScribe — Intelligent Note-Taking Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**QuickScribe** is a modern, intelligent note-taking web application built using the **MERN Stack** (MongoDB, Express.js, React, Node.js). It enables users to effortlessly create, organize, and manage notes with titles, descriptions, and customizable tags. The app offers features like real-time search, pinning, and smooth editing for a highly productive user experience.
 
-## Available Scripts
+## 🌟 Features
 
-In the project directory, you can run:
+- **🚀 Quick Note Creation**
+  - Add notes with a title, detailed description, and multiple tags (e.g., `#study`, `#productivity`, `#hardwork`).
 
-### `npm start`
+- **🔍 Real-Time Search & Filtering**
+  - Search notes dynamically by title with instant filtering.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **📌 Note Pinning**
+  - Pin important notes for prioritized viewing at the top.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **📝 Seamless Note Editing**
+  - Update or delete notes without navigating away from the current screen.
 
-### `npm test`
+- **💬 Intuitive Popups**
+  - Smooth and clean modals for editing or deleting notes enhance user interaction.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **🗂️ Organized Workflow**
+  - Use tags and pinning to keep your ideas or study materials well-structured and easy to manage.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔗 Live Demo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+👉 [QuickScribe Live on Vercel](https://notes-frontend-alpha-beryl.vercel.app)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🛠️ Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Layer       | Technology               |
+|-------------|---------------------------|
+| **Frontend** | React.js, Tailwind CSS     |
+| **Backend**  | Node.js, Express.js       |
+| **Database** | MongoDB (via Mongoose)    |
+| **State**    | React Hooks               |
+| **Hosting**  | Vercel (Frontend)         |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

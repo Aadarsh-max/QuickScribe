@@ -1,4 +1,4 @@
-# 📝 QuickScribe — Intelligent Note-Taking Web Application
+# QuickScribe — Intelligent Note-Taking Web Application
 
 **QuickScribe** is a modern, intelligent note-taking web application built using the **MERN Stack** (MongoDB, Express.js, React, Node.js). It enables users to effortlessly create, organize, and manage notes with titles, descriptions, and customizable tags. The app offers features like real-time search, pinning, and smooth editing for a highly productive user experience.
 
